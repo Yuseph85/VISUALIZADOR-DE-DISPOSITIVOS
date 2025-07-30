@@ -2,7 +2,6 @@ let data = {};
 const tipos = ["SD", "TD", "MD", "MR", "MS", "SLN"];
 const lazos = ["L1", "L2", "L3"];
 const circuitos = ["C1", "C2", "C3"];
-const contraseña = "controlmatic2025";  // Puedes cambiar la contraseña aquí
 
 function generarTabla() {
   let tabla = "<table><tr><th>CIRCUITO</th>";
@@ -38,11 +37,10 @@ function generarTabla() {
   document.getElementById("tabla-container").innerHTML = tabla;
 }
 
-// 🛡️ Verificación de contraseña antes de procesar el archivo
 function procesarArchivo() {
-  const ingreso = prompt("🔐 Ingrese la contraseña para continuar:");
-  if (ingreso !== contraseña) {
-    alert("❌ Contraseña incorrecta. No se cargará el archivo.");
+  const password = prompt("🔒 Ingrese la contraseña:");
+  if (password !== "controlmatic2025") {
+    alert("❌ Contraseña incorrecta. Acceso denegado.");
     return;
   }
 
@@ -55,30 +53,20 @@ function procesarArchivo() {
   reader.onload = function (e) {
     const lines = e.target.result.split(/\r?\n/);
     data = {};
-    let esMetrado = true;
-
-    for (let line of lines) {
-      if (line.trim().match(/^E\d{2}/)) {
-        esMetrado = false;
-        break;
-      }
-    }
-
-    if (esMetrado) {
-      const num = parseFloat(lines[0].replace(",", "."));
-      if (!isNaN(num)) {
-        document.getElementById("metrado-total").textContent =
-          `🔧 Longitud total: ${num.toFixed(2)} metros`;
-      } else {
-        document.getElementById("metrado-total").textContent = "❌ Archivo no válido.";
-      }
-      return;
-    }
+    let metrado = null;
 
     lines.forEach(line => {
-      const code = line.trim();
-      if (!code) return;
-      const match = code.match(/E\d{2}([A-Z]+)(L\dC\d)/);
+      const cleanLine = line.trim();
+      if (!cleanLine) return;
+
+      // Detectar si es un número (metrado de tuberías)
+      if (!isNaN(cleanLine)) {
+        metrado = parseFloat(cleanLine);
+        return;
+      }
+
+      // Detectar si es código de dispositivo
+      const match = cleanLine.match(/E\d{2}([A-Z]+)(L\dC\d)/);
       if (match) {
         const tipo = match[1];
         const lazo = match[2];
@@ -89,8 +77,17 @@ function procesarArchivo() {
     });
 
     generarTabla();
-  };
 
+    // Mostrar metrado si existe
+    const metradoElem = document.getElementById("metrado-total");
+    if (metradoElem) {
+      if (metrado !== null) {
+        metradoElem.textContent = `📏 ${metrado.toFixed(2)} metros de tubería`;
+      } else {
+        metradoElem.textContent = "No se encontró metrado de tuberías.";
+      }
+    }
+  };
   reader.readAsText(file);
 }
 
@@ -99,7 +96,9 @@ function vaciarTabla() {
   document.getElementById("fileInput").value = "";
   document.getElementById("fileName").textContent = "Ningún archivo seleccionado";
   document.getElementById("tabla-container").innerHTML = "";
-  document.getElementById("metrado-total").textContent = "No se encontró metrado de tuberías.";
+  const metradoElem = document.getElementById("metrado-total");
+  if (metradoElem) metradoElem.textContent = "No se encontró metrado de tuberías.";
 }
 
 window.onload = generarTabla;
+
