@@ -4,7 +4,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 /* Título */
@@ -17,9 +17,8 @@ h1 {
 
 /* Tabla contenida con ancho fijo */
 #tabla-container {
-  width: 1100px;        /* Ancho controlado */
-  margin-left: auto;
-  margin-right: auto;
+  width: 1100px;
+  margin: 0 auto;
 }
 
 /* Tabla */
@@ -46,13 +45,13 @@ th {
   font-size: 14px;
 }
 
-/* Totales de filas (L1, L2, etc.) */
+/* Filas de totales intermedios */
 tr[style*='font-weight:bold'] {
   background-color: #0088aa;
   color: navy;
 }
 
-/* Fila final de totales verticales */
+/* Fila total final */
 table tr:last-child td {
   font-weight: bold;
   background-color: #0088aa;
@@ -76,19 +75,18 @@ button:hover {
   background-color: #1d5dbf;
 }
 
-/* Cuadro de metrado fijo a la derecha */
+/* Cuadro de metrado ABAJO A LA DERECHA */
 #metrado-container {
-  position: fixed;
-  top: 25px;
-  right: 30px;
+  margin-top: 30px;
+  padding: 15px;
   background-color: #00fafa;
   border-radius: 10px;
-  border: 2px solid black;
-  padding: 10px 14px;
-  width: 220px;
   text-align: center;
-  box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
-  z-index: 1000;
+  border: 2px solid black;
+  width: 250px;
+  float: right;
+  margin-right: 30px;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
 }
 
 /* Título metrado */
@@ -107,6 +105,5 @@ button:hover {
   padding: 6px 10px;
   border-radius: 5px;
   display: inline-block;
-  min-width: 100px;
+  min-width: 160px;
 }
-
