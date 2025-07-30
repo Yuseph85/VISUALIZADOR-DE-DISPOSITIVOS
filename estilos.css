@@ -4,6 +4,8 @@ body {
   font-family: Arial, sans-serif;
   padding: 20px;
   margin: 0;
+  overflow-y: hidden; /* Elimina scroll vertical */
+  height: 100vh;
 }
 
 /* Título principal */
@@ -11,27 +13,29 @@ h1 {
   text-align: center;
   color: black;
   font-size: 26px;
+  margin-bottom: 10px;
 }
 
 /* Tabla general */
 table {
   border-collapse: collapse;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 /* Cabeceras y celdas */
 th, td {
   border: 1px solid #007c91;
   text-align: center;
-  padding: 8px;
+  padding: 4px 6px; /* Celda más compacta */
+  font-size: 14px;   /* Letra más pequeña */
 }
 
 /* Cabecera de la tabla */
 th {
   background-color: #007c91;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 /* Filas de totales */
@@ -42,7 +46,6 @@ tr[style*='font-weight:bold'] {
 
 /* Números individuales */
 td {
-  font-size: 16px;
   color: black;
 }
 
@@ -53,36 +56,37 @@ table tr:last-child td {
   color: navy;
 }
 
-/* Contenedor del metrado */
+/* Contenedor del metrado (arriba a la derecha sin scroll) */
 #metrado-container {
-  margin-top: 20px;
-  padding: 15px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
   background-color: #00fafa;
+  border: 2px solid black;
   border-radius: 10px;
   text-align: center;
-  border: 2px solid black;
-  width: 250px;
-  float: right;
-  margin-right: 30px;
+  width: 200px;
+  padding: 10px;
+  z-index: 10;
 }
 
 /* Título metrado */
 #metrado-container h2 {
-  font-size: 22px;
+  font-size: 16px;
   color: black;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 /* Valor del metrado */
 #metrado-total {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: bold;
   color: red;
   background-color: black;
-  padding: 8px;
+  padding: 6px 12px;
   border-radius: 5px;
   display: inline-block;
-  min-width: 120px;
+  min-width: 100px;
 }
 
 /* Botones */
@@ -90,11 +94,11 @@ button {
   background-color: #297be6;
   color: white;
   font-weight: bold;
-  padding: 10px 18px;
+  padding: 8px 14px;
   border: 2px solid #003366;
   border-radius: 10px;
-  font-size: 16px;
-  margin-right: 15px;
+  font-size: 14px;
+  margin-right: 10px;
   margin-top: 10px;
   cursor: pointer;
 }
