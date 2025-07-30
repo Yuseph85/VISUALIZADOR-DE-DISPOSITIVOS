@@ -4,10 +4,10 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 20px;
-  overflow-y: hidden; /* Sin scroll */
+  overflow-y: hidden;
 }
 
-/* Título principal */
+/* Título */
 h1 {
   text-align: center;
   color: black;
@@ -15,22 +15,28 @@ h1 {
   margin-bottom: 10px;
 }
 
-/* Tabla general */
+/* Tabla contenida con ancho fijo */
+#tabla-container {
+  width: 1100px;        /* Ancho controlado */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tabla */
 table {
   border-collapse: collapse;
   width: 100%;
+  table-layout: auto;
   margin-top: 10px;
-  table-layout: fixed; /* Ajuste automático de columnas */
 }
 
 /* Cabeceras y celdas */
 th, td {
   border: 1px solid #007c91;
   text-align: center;
-  padding: 3px 4px;       /* Menos espacio interno */
-  font-size: 13px;         /* Fuente más pequeña */
-  line-height: 1.2;        /* Menor altura */
-  word-wrap: break-word;
+  padding: 3px 6px;
+  font-size: 13px;
+  line-height: 1.2;
 }
 
 /* Cabecera */
@@ -40,13 +46,13 @@ th {
   font-size: 14px;
 }
 
-/* Filas de totales (como L1, L2, TOTAL) */
+/* Totales de filas (L1, L2, etc.) */
 tr[style*='font-weight:bold'] {
   background-color: #0088aa;
   color: navy;
 }
 
-/* Última fila (totales verticales) */
+/* Fila final de totales verticales */
 table tr:last-child td {
   font-weight: bold;
   background-color: #0088aa;
@@ -70,11 +76,11 @@ button:hover {
   background-color: #1d5dbf;
 }
 
-/* Contenedor del metrado */
+/* Cuadro de metrado fijo a la derecha */
 #metrado-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
+  position: fixed;
+  top: 25px;
+  right: 30px;
   background-color: #00fafa;
   border-radius: 10px;
   border: 2px solid black;
@@ -82,13 +88,14 @@ button:hover {
   width: 220px;
   text-align: center;
   box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+  z-index: 1000;
 }
 
-/* Título del metrado */
+/* Título metrado */
 #metrado-container h2 {
   font-size: 16px;
   color: black;
-  margin: 5px 0;
+  margin-bottom: 10px;
 }
 
 /* Valor del metrado */
@@ -102,3 +109,4 @@ button:hover {
   display: inline-block;
   min-width: 100px;
 }
+
