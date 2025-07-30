@@ -1,13 +1,8 @@
 let data = {};
-
-// Tipos de dispositivos esperados
 const tipos = ["SD", "TD", "MD", "MR", "MS", "SLN"];
-
-// Lazos y circuitos
 const lazos = ["L1", "L2", "L3"];
 const circuitos = ["C1", "C2", "C3"];
 
-// Genera la tabla con los datos procesados
 function generarTabla() {
   let tabla = "<table><tr><th>CIRCUITO</th>";
   tipos.forEach(t => tabla += `<th>${t}</th>`);
@@ -23,7 +18,6 @@ function generarTabla() {
       });
       tabla += "</tr>";
     });
-    // Fila de totales por lazo
     tabla += `<tr style='font-weight:bold'><td>${lazo}</td>`;
     tipos.forEach(t => {
       let total = circuitos.reduce((sum, c) => sum + (data[`${lazo}${c}`]?.[t] ?? 0), 0);
@@ -32,7 +26,6 @@ function generarTabla() {
     tabla += "</tr>";
   });
 
-  // Fila final de total general
   tabla += "<tr style='font-weight:bold'><td>TOTAL</td>";
   tipos.forEach(t => {
     let total = lazos.reduce((sumL, lazo) =>
@@ -44,37 +37,36 @@ function generarTabla() {
   document.getElementById("tabla-container").innerHTML = tabla;
 }
 
-// Procesa el archivo cargado
 function procesarArchivo() {
+  const password = prompt("🔒 Ingrese la contraseña:");
+  if (password !== "controlmatic2025") {
+    alert("❌ Contraseña incorrecta. Acceso denegado.");
+    return;
+  }
+
   const fileInput = document.getElementById("fileInput");
   const file = fileInput.files[0];
   if (!file) return;
-
   document.getElementById("fileName").textContent = file.name;
 
   const reader = new FileReader();
   reader.onload = function (e) {
-    const content = e.target.result.trim();
-    const lines = content.split(/\r?\n/);
+    const lines = e.target.result.split(/\r?\n/);
     data = {};
+    let metrado = null;
 
-    // 📌 Si es un archivo de metrado de tuberías
-    if (
-      lines.length === 2 &&
-      lines[0].toLowerCase().includes("longitudtotal") &&
-      !isNaN(parseFloat(lines[1]))
-    ) {
-      const total = parseFloat(lines[1]).toFixed(2);
-      document.getElementById("metrado-total").textContent = `${total} metros`;
-      document.getElementById("metrado-total").style.color = "red";
-      return;
-    }
-
-    // 📌 Si es un archivo de códigos de dispositivos
     lines.forEach(line => {
-      const code = line.trim();
-      if (!code) return;
-      const match = code.match(/E\d{2}([A-Z]+)(L\dC\d)/);
+      const cleanLine = line.trim();
+      if (!cleanLine) return;
+
+      // Detectar si es un número (metrado de tuberías)
+      if (!isNaN(cleanLine)) {
+        metrado = parseFloat(cleanLine);
+        return;
+      }
+
+      // Detectar si es código de dispositivo
+      const match = cleanLine.match(/E\d{2}([A-Z]+)(L\dC\d)/);
       if (match) {
         const tipo = match[1];
         const lazo = match[2];
@@ -85,20 +77,27 @@ function procesarArchivo() {
     });
 
     generarTabla();
-  };
 
+    // Mostrar metrado si existe
+    const metradoElem = document.getElementById("metrado-total");
+    if (metradoElem) {
+      if (metrado !== null) {
+        metradoElem.textContent = `📏 ${metrado.toFixed(2)} metros de tubería`;
+      } else {
+        metradoElem.textContent = "No se encontró metrado de tuberías.";
+      }
+    }
+  };
   reader.readAsText(file);
 }
 
-// Vacía los datos y la tabla
 function vaciarTabla() {
   data = {};
   document.getElementById("fileInput").value = "";
   document.getElementById("fileName").textContent = "Ningún archivo seleccionado";
-  document.getElementById("metrado-total").textContent = "No se encontró metrado de tuberías.";
-  document.getElementById("metrado-total").style.color = "darkblue";
-  generarTabla();
+  document.getElementById("tabla-container").innerHTML = "";
+  const metradoElem = document.getElementById("metrado-total");
+  if (metradoElem) metradoElem.textContent = "No se encontró metrado de tuberías.";
 }
 
-// Ejecutar al cargar la página
 window.onload = generarTabla;
