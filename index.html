@@ -2,22 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Visualizador de Dispositivos y Tuberías</title>
+  <title>Visualizador de Dispositivos por Lazo</title>
   <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
-  <h1>Visualizador de Dispositivos por Lazo</h1>
+  <h1 style="text-align: center;">Visualizador de Dispositivos por Lazo</h1>
 
-  <!-- Entrada de archivo CSV -->
-  <input type="file" id="fileInput" accept=".csv" />
+  <!-- 🔐 Input de archivo con validación de contraseña -->
+  <input type="file" id="fileInput" accept=".csv" onchange="pedirContrasena()" />
   <span id="fileName">Ningún archivo seleccionado</span>
-  
-  <!-- Botones de acción -->
   <button onclick="procesarArchivo()">EXTRAER</button>
   <button onclick="vaciarTabla()">VACIAR</button>
 
-  <!-- Tabla de dispositivos -->
-  <div id="tabla-container"></div>
+  <!-- 📊 Contenedor de la tabla -->
+  <div id="tabla-container" style="margin-top: 20px;"></div>
 
   <!-- 🔧 Contenedor para mostrar el metrado de tuberías -->
   <div id="metrado-container" style="margin-top: 20px;">
@@ -27,7 +25,6 @@
     </p>
   </div>
 
-  <!-- Script JS principal -->
   <script src="script.js"></script>
 </body>
 </html>
