@@ -2,17 +2,16 @@
 body {
   background-color: #00d9d9;
   font-family: Arial, sans-serif;
-  padding: 20px;
   margin: 0;
-  overflow-y: hidden; /* Elimina scroll vertical */
-  height: 100vh;
+  padding: 20px;
+  overflow-y: hidden; /* Sin scroll */
 }
 
 /* Título principal */
 h1 {
   text-align: center;
   color: black;
-  font-size: 26px;
+  font-size: 24px;
   margin-bottom: 10px;
 }
 
@@ -21,72 +20,37 @@ table {
   border-collapse: collapse;
   width: 100%;
   margin-top: 10px;
+  table-layout: fixed; /* Ajuste automático de columnas */
 }
 
 /* Cabeceras y celdas */
 th, td {
   border: 1px solid #007c91;
   text-align: center;
-  padding: 4px 6px; /* Celda más compacta */
-  font-size: 14px;   /* Letra más pequeña */
+  padding: 3px 4px;       /* Menos espacio interno */
+  font-size: 13px;         /* Fuente más pequeña */
+  line-height: 1.2;        /* Menor altura */
+  word-wrap: break-word;
 }
 
-/* Cabecera de la tabla */
+/* Cabecera */
 th {
   background-color: #007c91;
   color: white;
-  font-size: 15px;
+  font-size: 14px;
 }
 
-/* Filas de totales */
+/* Filas de totales (como L1, L2, TOTAL) */
 tr[style*='font-weight:bold'] {
   background-color: #0088aa;
   color: navy;
 }
 
-/* Números individuales */
-td {
-  color: black;
-}
-
-/* Totales verticales (última fila) */
+/* Última fila (totales verticales) */
 table tr:last-child td {
   font-weight: bold;
   background-color: #0088aa;
   color: navy;
-}
-
-/* Contenedor del metrado (arriba a la derecha sin scroll) */
-#metrado-container {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: #00fafa;
-  border: 2px solid black;
-  border-radius: 10px;
-  text-align: center;
-  width: 200px;
-  padding: 10px;
-  z-index: 10;
-}
-
-/* Título metrado */
-#metrado-container h2 {
-  font-size: 16px;
-  color: black;
-  margin-bottom: 8px;
-}
-
-/* Valor del metrado */
-#metrado-total {
-  font-size: 20px;
-  font-weight: bold;
-  color: red;
-  background-color: black;
-  padding: 6px 12px;
-  border-radius: 5px;
-  display: inline-block;
-  min-width: 100px;
 }
 
 /* Botones */
@@ -94,15 +58,47 @@ button {
   background-color: #297be6;
   color: white;
   font-weight: bold;
-  padding: 8px 14px;
+  padding: 6px 14px;
   border: 2px solid #003366;
   border-radius: 10px;
   font-size: 14px;
-  margin-right: 10px;
-  margin-top: 10px;
+  margin: 8px 5px 0 5px;
   cursor: pointer;
 }
 
 button:hover {
   background-color: #1d5dbf;
+}
+
+/* Contenedor del metrado */
+#metrado-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #00fafa;
+  border-radius: 10px;
+  border: 2px solid black;
+  padding: 10px 14px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.3);
+}
+
+/* Título del metrado */
+#metrado-container h2 {
+  font-size: 16px;
+  color: black;
+  margin: 5px 0;
+}
+
+/* Valor del metrado */
+#metrado-total {
+  font-size: 22px;
+  font-weight: bold;
+  color: red;
+  background-color: black;
+  padding: 6px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  min-width: 100px;
 }
