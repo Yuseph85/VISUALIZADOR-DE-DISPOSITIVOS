@@ -43,7 +43,7 @@ tr[style*='font-weight:bold'] {
 /* Números individuales */
 td {
   font-size: 16px;
-  color: red;
+  color: black;
 }
 
 /* Totales verticales (última fila) */
