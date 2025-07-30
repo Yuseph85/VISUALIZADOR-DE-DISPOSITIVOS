@@ -1,109 +1,62 @@
-/* Fondo general */
 body {
-  background-color: #00d9d9;
+  background-color: #c1e7ea;
   font-family: Arial, sans-serif;
+  padding: 10px;
   margin: 0;
-  padding: 20px;
-  overflow-x: hidden;
 }
 
-/* Título */
 h1 {
   text-align: center;
-  color: black;
-  font-size: 24px;
+  font-size: 20px;
   margin-bottom: 10px;
 }
 
-/* Tabla contenida con ancho fijo */
-#tabla-container {
-  width: 1100px;
-  margin: 0 auto;
+input, button, span {
+  font-size: 12px;
+  margin: 2px;
 }
 
-/* Tabla */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  table-layout: auto;
-  margin-top: 10px;
-}
-
-/* Cabeceras y celdas */
-th, td {
-  border: 1px solid #007c91;
-  text-align: center;
-  padding: 3px 6px;
-  font-size: 13px;
-  line-height: 1.2;
-}
-
-/* Cabecera */
-th {
+button {
+  margin: 4px 4px 4px 0;
+  padding: 4px 10px;
+  font-weight: bold;
   background-color: #007c91;
   color: white;
-  font-size: 14px;
-}
-
-/* Filas de totales intermedios */
-tr[style*='font-weight:bold'] {
-  background-color: #0088aa;
-  color: navy;
-}
-
-/* Fila total final */
-table tr:last-child td {
-  font-weight: bold;
-  background-color: #0088aa;
-  color: navy;
-}
-
-/* Botones */
-button {
-  background-color: #297be6;
-  color: white;
-  font-weight: bold;
-  padding: 6px 14px;
-  border: 2px solid #003366;
-  border-radius: 10px;
-  font-size: 14px;
-  margin: 8px 5px 0 5px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #1d5dbf;
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 10px;
+  font-size: 12px;
 }
 
-/* Cuadro de metrado ABAJO A LA DERECHA */
-#metrado-container {
-  margin-top: 30px;
-  padding: 15px;
-  background-color: #00fafa;
-  border-radius: 10px;
+th, td {
+  border: 1px solid #007c91;
   text-align: center;
-  border: 2px solid black;
-  width: 250px;
-  float: right;
-  margin-right: 30px;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+  padding: 4px;
 }
 
-/* Título metrado */
-#metrado-container h2 {
-  font-size: 16px;
-  color: black;
-  margin-bottom: 10px;
+th {
+  background-color: #006b7f;
+  color: white;
 }
 
-/* Valor del metrado */
+#metrado-container {
+  margin-top: 10px;
+}
+
 #metrado-total {
-  font-size: 22px;
+  font-size: 14px;
   font-weight: bold;
-  color: red;
-  background-color: black;
-  padding: 6px 10px;
-  border-radius: 5px;
-  display: inline-block;
-  min-width: 160px;
+  color: darkblue;
+  margin: 4px 0;
 }
+
+#fileName {
+  font-size: 12px;
+}
+
