@@ -5,39 +5,34 @@
   <title>Visualizador de Dispositivos y Tuberías</title>
   <link rel="stylesheet" href="estilos.css?v=2" />
 
-  <!-- Guardia de acceso con Firebase -->
+  <!-- Auth guard: exige sesión Firebase verificada antes de mostrar la página -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    /* 👇 PEGA AQUÍ tu bloque COMPLETO de firebaseConfig desde Firebase Console.
-       Debe verse así (con tus valores reales):
-       const firebaseConfig = {
-         apiKey: "TU_API_KEY",
-         authDomain: "TU_AUTH_DOMAIN",
-         projectId: "TU_PROJECT_ID",
-         storageBucket: "TU_STORAGE_BUCKET",
-         messagingSenderId: "TU_MESSAGING_SENDER_ID",
-         appId: "TU_APP_ID"
-       };
-    */
+    // ⬇️ Reemplaza TODO este objeto por TU firebaseConfig (copiado de Firebase Console)
     const firebaseConfig = {
-      // <-- reemplaza TODO este objeto por el tuyo
+      apiKey: "TU_API_KEY",
+      authDomain: "TU_AUTH_DOMAIN",
+      projectId: "TU_PROJECT_ID",
+      storageBucket: "TU_STORAGE_BUCKET",
+      messagingSenderId: "TU_MESSAGING_SENDER_ID",
+      appId: "TU_APP_ID"
     };
 
-    // Oculta la página mientras valida sesión
+    // Oculta el HTML mientras valida sesión
     document.documentElement.style.visibility = "hidden";
 
     const app  = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
     onAuthStateChanged(auth, (user) => {
-      // Si no hay sesión o el correo no está verificado -> ir a Acceso.html
+      // Si no hay sesión o el correo no está verificado -> redirige al login
       if (!user || !user.emailVerified) {
-        window.location.href = "Acceso.html"; // respeta la A mayúscula
+        window.location.href = "Acceso.html"; // Asegúrate de que el archivo exista con A mayúscula
         return;
       }
-      // OK: mostrar visualizador
+      // OK: muestra la página
       document.documentElement.style.visibility = "visible";
     });
   </script>
@@ -55,7 +50,7 @@
   <button onclick="procesarArchivo()">EXTRAER</button>
   <button onclick="vaciarTabla()">VACIAR</button>
 
-  <!-- 🔧 Contenedor para mostrar el metrado de tuberías -->
+  <!-- Metrado de tuberías -->
   <div id="metrado-container">
     <h2>🔧 Metrado de Tuberías</h2>
     <p id="metrado-total">No se encontró metrado de tuberías.</p>
@@ -64,7 +59,7 @@
   <!-- Tabla de dispositivos -->
   <div id="tabla-container"></div>
 
-  <!-- Script JS principal -->
+  <!-- Lógica principal -->
   <script src="script.js"></script>
 </body>
 </html>
