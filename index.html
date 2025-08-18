@@ -4,6 +4,45 @@
   <meta charset="UTF-8" />
   <title>Visualizador de Dispositivos y Tuberías</title>
   <link rel="stylesheet" href="estilos.css?v=2" />
+
+  <!-- Guardia de acceso con Firebase -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    /* 👇 PEGA AQUÍ tu bloque COMPLETO de firebaseConfig desde Firebase Console.
+       Debe verse así (con tus valores reales):
+       const firebaseConfig = {
+         apiKey: "TU_API_KEY",
+         authDomain: "TU_AUTH_DOMAIN",
+         projectId: "TU_PROJECT_ID",
+         storageBucket: "TU_STORAGE_BUCKET",
+         messagingSenderId: "TU_MESSAGING_SENDER_ID",
+         appId: "TU_APP_ID"
+       };
+    */
+    const firebaseConfig = {
+      // <-- reemplaza TODO este objeto por el tuyo
+    };
+
+    // Oculta la página mientras valida sesión
+    document.documentElement.style.visibility = "hidden";
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      // Si no hay sesión o el correo no está verificado -> ir a Acceso.html
+      if (!user || !user.emailVerified) {
+        window.location.href = "Acceso.html"; // respeta la A mayúscula
+        return;
+      }
+      // OK: mostrar visualizador
+      document.documentElement.style.visibility = "visible";
+    });
+  </script>
+
+  <noscript>Esta página requiere JavaScript para validar el acceso.</noscript>
 </head>
 <body>
   <h1>Visualizador de Dispositivos por Lazo</h1>
