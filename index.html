@@ -1,66 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Device & Pipe Viewer</title>
-  <link rel="stylesheet" href="estilos.css?v=2" />
-
-  <!-- Auth guard: require a verified Firebase session before showing the page -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-    /* Your Firebase config (from Firebase Console) */
-    const firebaseConfig = {
-      apiKey: "AIzaSyDsahd5bZlacrRKzIobmWYGthIuothK2AY",
-      authDomain: "metradorpro.firebaseapp.com",
-      projectId: "metradorpro",
-      storageBucket: "metradorpro.firebasestorage.app",
-      messagingSenderId: "556379997225",
-      appId: "1:556379997225:web:ff4c941013ac15fe0d8838"
-    };
-
-    // Hide the page while validating the session
-    document.documentElement.style.visibility = "hidden";
-
-    const app  = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    onAuthStateChanged(auth, (user) => {
-      // If no session or email not verified -> redirect to login
-      if (!user || !user.emailVerified) {
-        // Make sure this file exists exactly with this name/casing in your repo
-        window.location.href = "Acceso.html";
-        return;
-      }
-      // OK: show the page
-      document.documentElement.style.visibility = "visible";
-    });
-  </script>
-
-  <noscript>This page requires JavaScript to validate access.</noscript>
+  <title>Visualizador de Dispositivos y Tuberías</title>
+  <link rel="stylesheet" href="estilos.css" />
 </head>
 <body>
-  <h1>Device Viewer by Loop</h1>
+  <h1>Visualizador de Dispositivos por Lazo</h1>
 
-  <!-- CSV file input -->
+  <!-- Entrada de archivo CSV -->
   <input type="file" id="fileInput" accept=".csv" />
-  <span id="fileName">No file selected</span>
+  <span id="fileName">Ningún archivo seleccionado</span>
   
-  <!-- Action buttons -->
-  <button onclick="procesarArchivo()">EXTRACT</button>
-  <button onclick="vaciarTabla()">CLEAR</button>
+  <!-- Botones de acción -->
+  <button onclick="procesarArchivo()">EXTRAER</button>
+  <button onclick="vaciarTabla()">VACIAR</button>
 
-  <!-- Pipe takeoff -->
-  <div id="metrado-container">
-    <h2>🔧 Pipe Takeoff</h2>
-    <p id="metrado-total">No pipe takeoff found.</p>
-  </div>
-
-  <!-- Device table -->
+  <!-- Tabla de dispositivos -->
   <div id="tabla-container"></div>
 
-  <!-- Main logic -->
+  <!-- 🔧 Contenedor para mostrar el metrado de tuberías -->
+  <div id="metrado-container" style="margin-top: 20px;">
+    <h2>🔧 Metrado de Tuberías</h2>
+    <p id="metrado-total" style="font-size: 20px; font-weight: bold; color: darkblue;">
+      No se encontró metrado de tuberías.
+    </p>
+  </div>
+
+  <!-- Script JS principal -->
   <script src="script.js"></script>
 </body>
 </html>
